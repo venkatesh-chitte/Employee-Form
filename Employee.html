@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .input-field {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 200px;
+            margin-bottom: 10px;
+            display: block;
+            background-color: aqua;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: #fff;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #3e8e41;
+        }
+
+        #list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        #list li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+
+        #list li:last-child {
+            border-bottom: none;
+        }
+
+        .delete-btn, .edit-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .delete-btn {
+            background-color: #ff0000;
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
+        }
+
+        .edit-btn {
+            background-color: #f0ad4e;
+            color: #fff;
+        }
+
+        .edit-btn:hover {
+            background-color: #ec971f;
+        }
+
+        #form {
+            border: 1px solid black;
+            padding: 20px;
+            width: 300px;
+            max-width: 600px;
+            background-color: #f0ad4e;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        span {
+            flex: 1;
+            text-align: left;
+        }
+        #employee-inputs{
+            margin-left: 100px,30px;
+        }
+    </style>
+</head>
+<body>
+    <div id="form">
+        <h1>EMPLOYEE FORM</h1>
+        <div id="employee-inputs">
+        <input id="input-field1" class="input-field" type="text" placeholder="NAME">
+        <input id="input-field2" class="input-field" type="text" placeholder="EMAIL">
+        <input id="input-field3" class="input-field" type="text" placeholder="POSITION">
+        <input id="input-field4" class="input-field" type="text" placeholder="COMPANY NAME">
+        <input id="input-field5" class="input-field" type="text" placeholder="EMPLOYEE ID">
+        <input id="input-field6" class="input-field" type="text" placeholder="CITY">
+        <button onclick="addToList()">Submit</button>
+        </div>
+    </div>
+    <ul id="list"></ul>
+
+    <script>
+        function addToList() {
+            const input1 = document.getElementById('input-field1').value;
+            const input2 = document.getElementById('input-field2').value;
+            const input3 = document.getElementById('input-field3').value;
+            const input4 = document.getElementById('input-field4').value;
+            const input5 = document.getElementById('input-field5').value;
+            const input6 = document.getElementById('input-field6').value;
+
+            const list = document.getElementById('list');
+
+            
+            if (input1 !== '' || input2 !== '' || input3 !== '' || input4 !== '' || input5 !== '' || input6 !== '') {
+                const li = document.createElement('li');
+                const deleteButton = document.createElement('button');
+                const editButton = document.createElement('button');
+                const buttonGroup = document.createElement('div');
+
+                
+                deleteButton.textContent = "Delete";
+                deleteButton.className = "delete-btn";
+
+                
+                editButton.textContent = "Edit";
+                editButton.className = "edit-btn";
+
+                buttonGroup.className = "button-group";
+                buttonGroup.appendChild(editButton);
+                buttonGroup.appendChild(deleteButton);
+
+                
+                const span = document.createElement('span');
+                span.textContent = `Employee Details: ${input1}, ${input2}, ${input3}, ${input4}, ${input5}, ${input6}`;
+                li.appendChild(span);
+                li.appendChild(buttonGroup);
+                list.appendChild(li);
+
+                document.getElementById('input-field1').value = '';
+                document.getElementById('input-field2').value = '';
+                document.getElementById('input-field3').value = '';
+                document.getElementById('input-field4').value = '';
+                document.getElementById('input-field5').value = '';
+                document.getElementById('input-field6').value = '';
+
+                
+                deleteButton.addEventListener('click', () => {
+                    list.removeChild(li);
+                });
+
+                
+                editButton.addEventListener('click', () => {
+                    const currentDetails = span.textContent.replace('Employee Details: ', '').split(', ');
+                    const newValue1 = prompt("Edit NAME:", currentDetails[0]);
+                    const newValue2 = prompt("Edit EMAIL:", currentDetails[1]);
+                    const newValue3 = prompt("Edit POSITION:", currentDetails[2]);
+                    const newValue4 = prompt("Edit COMPANY NAME:", currentDetails[3]);
+                    const newValue5 = prompt("Edit EMPLOYEE ID:", currentDetails[4]);
+                    const newValue6 = prompt("Edit CITY:", currentDetails[5]);
+
+                    if (newValue1 !== null && newValue2 !== null && newValue3 !== null &&
+                        newValue4 !== null && newValue5 !== null && newValue6 !== null) {
+                        span.textContent = `Employee Details: ${newValue1}, ${newValue2}, ${newValue3}, ${newValue4}, ${newValue5}, ${newValue6}`;
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
